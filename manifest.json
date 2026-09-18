@@ -1,15 +1,13 @@
 {
   "name": "Infinity.bin Firmware",
   "version": "1.0",
-  "home_assistant_domain": "infbin",
-  "funding_url": "https://github.com/g95690526-sudo",
-  "new_install_prompt_erase": true,
   "builds": [
     {
       "chipFamily": "ESP32-S3",
       "parts": [
         {
           "path": "infbin_v1.0_merged.bin",
+          "offset": 0
         }
       ]
     }
