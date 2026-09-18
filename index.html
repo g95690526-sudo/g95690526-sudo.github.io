@@ -7,51 +7,34 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90' fill='%2300FF00'>∞</text></svg>">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  html, body {
-    width: 100%;
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
+  html, body { width: 100%; min-height: 100vh; overflow-x: hidden; }
   body {
-    background: #000000;
+    background: #000;
     color: #00FF00;
     font-family: 'Courier New', monospace;
     position: relative;
   }
-  /* ====== MATRIX RAIN BACKGROUND ====== */
   #bg-canvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-    opacity: 0.4;
+    position: fixed; top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 0; opacity: 0.4;
     pointer-events: none;
   }
-  /* ====== EYE OVERLAY ====== */
   #eye-canvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 999;
-    display: none;
-    background: #000;
-    cursor: pointer;
+    position: fixed; top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 999; display: none;
+    background: #000; cursor: pointer;
   }
-  /* ====== MAIN CONTENT ====== */
   .container {
-    position: relative;
-    z-index: 2;
+    position: relative; z-index: 2;
     max-width: 760px;
     width: calc(100% - 40px);
     margin: 40px auto;
     background: rgba(0, 15, 0, 0.85);
     border: 2px solid #00FF00;
     padding: 40px 30px;
-    box-shadow: 0 0 40px rgba(0, 255, 0, 0.4), inset 0 0 20px rgba(0, 255, 0, 0.1);
+    box-shadow: 0 0 40px rgba(0,255,0,0.4), inset 0 0 20px rgba(0,255,0,0.1);
     backdrop-filter: blur(4px);
   }
   .infinity {
@@ -66,65 +49,40 @@
     user-select: none;
     -webkit-tap-highlight-color: transparent;
   }
-  @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.7; }
-  }
+  @keyframes pulse { 0%,100% {opacity:1;} 50% {opacity:0.7;} }
   h1 {
-    text-align: center;
-    font-size: 34px;
-    color: #00FF00;
-    letter-spacing: 3px;
+    text-align: center; font-size: 34px;
+    color: #00FF00; letter-spacing: 3px;
     margin-bottom: 8px;
     text-shadow: 0 0 10px #00FF00;
   }
   .subtitle {
-    text-align: center;
-    color: #00AA00;
-    font-size: 13px;
-    margin-bottom: 30px;
-    letter-spacing: 1px;
+    text-align: center; color: #00AA00;
+    font-size: 13px; margin-bottom: 30px; letter-spacing: 1px;
   }
   .terminal {
-    background: #000;
-    border: 1px solid #00AA00;
-    padding: 15px;
-    margin-bottom: 25px;
-    font-size: 13px;
-    line-height: 1.7;
-    color: #00FF00;
-    min-height: 140px;
+    background: #000; border: 1px solid #00AA00;
+    padding: 15px; margin-bottom: 25px;
+    font-size: 13px; line-height: 1.7;
+    color: #00FF00; min-height: 140px;
   }
   .terminal .prompt { color: #AAFF88; }
   .terminal .dim { color: #00AA00; }
   .cursor {
-    display: inline-block;
-    width: 8px;
-    height: 14px;
-    background: #00FF00;
-    animation: blink 1s infinite;
+    display: inline-block; width: 8px; height: 14px;
+    background: #00FF00; animation: blink 1s infinite;
     vertical-align: middle;
   }
-  @keyframes blink {
-    0%, 50% { opacity: 1; }
-    51%, 100% { opacity: 0; }
-  }
+  @keyframes blink { 0%,50% {opacity:1;} 51%,100% {opacity:0;} }
   .btn {
-    display: block;
-    text-align: center;
-    padding: 18px;
-    background: #00FF00;
-    color: #000;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 17px;
-    letter-spacing: 2px;
-    border: none;
-    cursor: pointer;
+    display: block; text-align: center;
+    padding: 18px; background: #00FF00; color: #000;
+    text-decoration: none; font-weight: bold;
+    font-size: 17px; letter-spacing: 2px;
+    border: none; cursor: pointer;
     transition: all 0.3s;
     box-shadow: 0 0 20px #00FF00;
-    margin-bottom: 12px;
-    border-radius: 2px;
+    margin-bottom: 12px; border-radius: 2px;
   }
   .btn:hover {
     background: #AAFF88;
@@ -132,24 +90,18 @@
     transform: scale(1.02);
   }
   .btn-secondary {
-    background: transparent;
-    color: #00FF00;
-    border: 2px solid #00FF00;
-    box-shadow: none;
-    font-size: 14px;
-    padding: 12px;
+    background: transparent; color: #00FF00;
+    border: 2px solid #00FF00; box-shadow: none;
+    font-size: 14px; padding: 12px;
   }
   .btn-secondary:hover {
-    background: rgba(0, 255, 0, 0.15);
-    color: #AAFF88;
-    box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+    background: rgba(0,255,0,0.15); color: #AAFF88;
+    box-shadow: 0 0 20px rgba(0,255,0,0.5);
   }
   .btn-install {
-    background: #FFAA00;
-    color: #000;
+    background: #FFAA00; color: #000;
     box-shadow: 0 0 25px #FFAA00;
-    font-size: 18px;
-    padding: 20px;
+    font-size: 18px; padding: 20px;
   }
   .btn-install:hover {
     background: #FFCC44;
@@ -157,34 +109,21 @@
     transform: scale(1.02);
   }
   .warning {
-    text-align: center;
-    color: #FFAA00;
-    font-size: 11px;
-    margin-bottom: 15px;
-    line-height: 1.5;
+    text-align: center; color: #FFAA00;
+    font-size: 11px; margin-bottom: 15px; line-height: 1.5;
   }
   .features {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-    margin: 25px 0;
+    display: grid; grid-template-columns: repeat(2, 1fr);
+    gap: 10px; margin: 25px 0;
   }
   .feature {
-    border: 1px solid #00AA00;
-    padding: 10px;
-    font-size: 12px;
-    color: #00FF00;
+    border: 1px solid #00AA00; padding: 10px;
+    font-size: 12px; color: #00FF00;
   }
-  .feature::before {
-    content: '▸ ';
-    color: #AAFF88;
-  }
+  .feature::before { content: '▸ '; color: #AAFF88; }
   .footer {
-    text-align: center;
-    color: #00AA00;
-    font-size: 11px;
-    margin-top: 20px;
-    line-height: 1.6;
+    text-align: center; color: #00AA00;
+    font-size: 11px; margin-top: 20px; line-height: 1.6;
   }
   .footer a { color: #AAFF88; text-decoration: none; }
   .footer a:hover { text-decoration: underline; }
@@ -224,17 +163,13 @@
 
     <script type="module" src="https://unpkg.com/esp-web-tools@10/dist/web/install-button.js?module"></script>
     <esp-web-install-button manifest="manifest.json">
-      <button class="btn btn-install" slot="activate">
-        ⚡ INSTALL FROM BROWSER
-      </button>
+      <button class="btn btn-install" slot="activate">⚡ INSTALL FROM BROWSER</button>
       <span slot="unsupported">
-        <button class="btn btn-secondary" disabled>
-          ⚠ Browser not supported (use Chrome/Edge)
-        </button>
+        <button class="btn btn-secondary" disabled>⚠ Browser not supported (use Chrome/Edge)</button>
       </span>
     </esp-web-install-button>
 
-    <a class="btn" href="https://github.com/g95690526-sudo/Infinity_bin_firmware/releases/download/1.0/infbin_v1.0_merged.bin" download>
+    <a class="btn" href="infbin_v1.0_merged.bin" download>
       ▼ DOWNLOAD FIRMWARE (MERGED .BIN)
     </a>
     <a class="btn btn-secondary" href="https://github.com/g95690526-sudo/Infinity_bin_firmware/releases/download/1.0/infbin_v1.0.bin" download>
@@ -265,7 +200,7 @@
 
 <script>
 /* ============================================================
-   1. MATRIX RAIN BACKGROUND (fast code lines)
+   1. MATRIX RAIN BACKGROUND
    ============================================================ */
 (function() {
   const canvas = document.getElementById('bg-canvas');
@@ -280,9 +215,7 @@
     cols = Math.floor(canvas.width / charSize);
     rows = Math.floor(canvas.height / charSize);
     columns = [];
-    for (let i = 0; i < cols; i++) {
-      columns[i] = Math.random() * rows;
-    }
+    for (let i = 0; i < cols; i++) columns[i] = Math.random() * rows;
   }
   window.addEventListener('resize', resize);
   resize();
@@ -290,37 +223,26 @@
   function draw() {
     ctx.fillStyle = 'rgba(0, 0, 0, 0.18)';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
-
     ctx.font = charSize + "px 'Courier New', monospace";
     ctx.textBaseline = 'top';
-
     for (let i = 0; i < cols; i++) {
       const ch = chars[Math.floor(Math.random() * chars.length)];
       const y = columns[i] * charSize;
-
-      // Bright head
       ctx.fillStyle = '#AAFF88';
       ctx.fillText(ch, i * charSize, y);
-
-      // Fading trail
       ctx.fillStyle = '#00AA00';
-      ctx.fillText(chars[Math.floor(Math.random() * chars.length)],
-                   i * charSize, y - charSize);
-
-      // Fast fall speed (was 0.5, now 1.2)
+      ctx.fillText(chars[Math.floor(Math.random() * chars.length)], i * charSize, y - charSize);
       columns[i] += 1.2 + Math.random() * 0.8;
-
       if (columns[i] * charSize > canvas.height + Math.random() * 500) {
         columns[i] = -1 - Math.random() * 5;
       }
     }
   }
-
   setInterval(draw, 40);
 })();
 
 /* ============================================================
-   2. ASCII EYE ANIMATION (secret trigger)
+   2. ASCII EYE + BLINKS + SHAKE + SCREAMER
    ============================================================ */
 (function() {
   const canvas = document.getElementById('eye-canvas');
@@ -328,6 +250,7 @@
   const chars = '01<>/\\|{}[]=+-*#$%&@ABCDEF';
   let startTime = null;
   let animating = false;
+  let audioCtx = null;
 
   function resize() {
     canvas.width = window.innerWidth;
@@ -340,6 +263,24 @@
     return chars[Math.floor(Math.random() * chars.length)];
   }
 
+  // Scary screech using Web Audio API
+  function playScreech() {
+    try {
+      if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = 'sawtooth';
+      osc.frequency.setValueAtTime(800, audioCtx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(80, audioCtx.currentTime + 1.2);
+      gain.gain.setValueAtTime(0.35, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 1.2);
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start();
+      osc.stop(audioCtx.currentTime + 1.2);
+    } catch(e) {}
+  }
+
   function renderEye(elapsed) {
     const w = canvas.width;
     const h = canvas.height;
@@ -347,71 +288,122 @@
     ctx.fillStyle = '#000';
     ctx.fillRect(0, 0, w, h);
 
-    // Character grid - adjust size for readability
     const charSize = Math.max(10, Math.min(18, w / 90));
     const cols = Math.floor(w / charSize);
     const rows = Math.floor(h / charSize);
-
     ctx.font = charSize + "px 'Courier New', monospace";
     ctx.textBaseline = 'top';
 
-    // Eye geometry
+    // ---------- SCREAMER PHASE (55-60 sec) ----------
+    if (elapsed >= 55) {
+      const local = elapsed - 55;  // 0..5
+      const flash = Math.floor(local * 12) % 2 === 0;
+      ctx.fillStyle = flash ? '#5a0000' : '#000';
+      ctx.fillRect(0, 0, w, h);
+
+      // Giant scary eye made of chars
+      const cx = cols / 2;
+      const cy = rows / 2;
+      const eyeW = cols * 0.42;
+      const eyeH = rows * 0.42;
+      const lookX = Math.sin(local * 8) * 0.15;
+      const lookY = Math.cos(local * 6) * 0.12;
+
+      for (let y = 0; y < rows; y++) {
+        for (let x = 0; x < cols; x++) {
+          const nx = (x - cx) / eyeW;
+          const ny = (y - cy) / eyeH;
+          const inEye = Math.abs(nx) < 1 && Math.abs(ny) < (1 - nx * nx);
+          if (!inEye) continue;
+
+          const pdx = nx - lookX;
+          const pdy = ny - lookY;
+          const pd = Math.sqrt(pdx * pdx + pdy * pdy);
+
+          let ch, color;
+          if (pd < 0.18) { ch = '@'; color = '#FF0000'; }
+          else if (pd < 0.32) { ch = '#'; color = '#FF4400'; }
+          else if (pd < 0.42) { ch = '*'; color = '#FF0000'; }
+          else { ch = '+'; color = '#880000'; }
+
+          ctx.fillStyle = color;
+          ctx.fillText(ch, x * charSize, y * charSize);
+        }
+      }
+
+      // Warning text
+      const titleSize = Math.floor(w / 22);
+      ctx.font = `bold ${titleSize}px 'Courier New', monospace`;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillStyle = flash ? '#FFFFFF' : '#FF0000';
+      ctx.shadowColor = '#FF0000';
+      ctx.shadowBlur = 20;
+      ctx.fillText('I SEE YOU,', w / 2, h * 0.78);
+      ctx.fillText('LITTLE RASCAL ;)', w / 2, h * 0.85);
+      ctx.shadowBlur = 0;
+      ctx.textBaseline = 'top';
+      return;
+    }
+
+    // ---------- NORMAL EYE PHASE (0-55 sec) ----------
     const cx = cols / 2;
     const cy = rows / 2;
     const eyeW = cols * 0.32;
     const eyeH = rows * 0.32;
 
-    // Fade-in / fade-out (over 60s total)
-    let eyeAmount = 1;
-    if (elapsed < 3)      eyeAmount = elapsed / 3;
-    else if (elapsed > 57) eyeAmount = Math.max(0, (60 - elapsed) / 3);
+    // Blink cycle - every ~2.5 sec, blink lasts 0.15 sec
+    const blinkCycle = elapsed % 2.5;
+    const blinking = blinkCycle > 2.35 && blinkCycle < 2.5;
 
-    // Look direction changes every ~5 seconds
-    const p = elapsed / 5;
-    const lookX = Math.sin(p * 1.7) * 0.45 + Math.sin(p * 0.9) * 0.15;
-    const lookY = Math.cos(p * 1.3) * 0.30 + Math.sin(p * 0.7) * 0.12;
+    // Fade in / shake intensity
+    let eyeAmount = 1;
+    if (elapsed < 2) eyeAmount = elapsed / 2;
+
+    // Shake intensity grows in last 20 seconds (35-55 sec)
+    let shakeIntensity = 0;
+    if (elapsed > 35) shakeIntensity = Math.min(1, (elapsed - 35) / 15);
+
+    // Fast pupil movement
+    const p = elapsed / 1.5;
+    let lookX = Math.sin(p * 2.3) * 0.5 + Math.sin(p * 1.1) * 0.2;
+    let lookY = Math.cos(p * 1.9) * 0.35 + Math.sin(p * 1.4) * 0.15;
+
+    // Add violent shake
+    if (shakeIntensity > 0) {
+      lookX += (Math.random() - 0.5) * shakeIntensity * 1.5;
+      lookY += (Math.random() - 0.5) * shakeIntensity * 1.5;
+    }
+    lookX = Math.max(-0.7, Math.min(0.7, lookX));
+    lookY = Math.max(-0.5, Math.min(0.5, lookY));
 
     for (let y = 0; y < rows; y++) {
       for (let x = 0; x < cols; x++) {
         const nx = (x - cx) / eyeW;
         const ny = (y - cy) / eyeH;
-
-        // Almond shape: |ny| < 1 - nx^2, |nx| < 1
         const inEye = Math.abs(nx) < 1 && Math.abs(ny) < (1 - nx * nx);
 
-        let ch = null;
-        let color = null;
+        let ch = null, color = null;
 
-        if (inEye) {
+        // Blinking: eye closed -> all noise
+        const effectiveInEye = blinking ? false : inEye;
+
+        if (effectiveInEye) {
           const pdx = nx - lookX;
           const pdy = ny - lookY;
           const pd = Math.sqrt(pdx * pdx + pdy * pdy);
 
-          if (pd < 0.13) {
-            ch = '@';
-            color = '#AAFF88';
-          } else if (pd < 0.25) {
-            ch = '#';
-            color = '#00FF00';
-          } else if (pd < 0.32) {
-            ch = '*';
-            color = '#00FF00';
-          } else if (Math.abs(ny) > (1 - nx * nx) * 0.65) {
-            ch = '*';
-            color = '#00FF00';
-          } else {
-            ch = '+';
-            color = '#005500';
-          }
+          if (pd < 0.13) { ch = '@'; color = '#AAFF88'; }
+          else if (pd < 0.25) { ch = '#'; color = '#00FF00'; }
+          else if (pd < 0.32) { ch = '*'; color = '#00FF00'; }
+          else if (Math.abs(ny) > (1 - nx * nx) * 0.65) { ch = '*'; color = '#00FF00'; }
+          else { ch = '+'; color = '#005500'; }
         }
 
-        // Fade in/out: swap with noise
-        if (Math.random() > eyeAmount) {
+        if (Math.random() > eyeAmount || blinking) {
           ch = randomChar();
           color = '#005500';
         }
-
-        // Add sparse background noise
         if (!ch && Math.random() < 0.06 * eyeAmount) {
           ch = randomChar();
           color = '#002200';
@@ -422,6 +414,16 @@
           ctx.fillText(ch, x * charSize, y * charSize);
         }
       }
+    }
+
+    // Warning message: pupil shakes -> mention
+    if (shakeIntensity > 0.3) {
+      const warnSize = Math.floor(w / 40);
+      ctx.font = `bold ${warnSize}px 'Courier New', monospace`;
+      ctx.textAlign = 'center';
+      ctx.fillStyle = '#FF0000';
+      ctx.fillText('he sees you...', w / 2, h - 30);
+      ctx.textAlign = 'left';
     }
   }
 
@@ -437,21 +439,26 @@
       return;
     }
 
+    // Trigger screamer sound once at 55s
+    if (elapsed >= 55 && elapsed < 55.2 && !window._screamerFired) {
+      window._screamerFired = true;
+      playScreech();
+    }
+    if (elapsed < 5) window._screamerFired = false;
+
     renderEye(elapsed);
     requestAnimationFrame(animate);
   }
 
-  // ---- SECRET TRIGGER: click the ∞ symbol ----
-  const secret = document.getElementById('secret');
-  secret.addEventListener('click', () => {
+  document.getElementById('secret').addEventListener('click', () => {
     if (animating) return;
     animating = true;
     startTime = null;
+    window._screamerFired = false;
     canvas.style.display = 'block';
     requestAnimationFrame(animate);
   });
 
-  // Also close eye on click/tap on overlay
   canvas.addEventListener('click', () => {
     canvas.style.display = 'none';
     animating = false;
