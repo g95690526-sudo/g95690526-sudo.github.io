@@ -9,8 +9,7 @@
       "chipFamily": "ESP32-S3",
       "parts": [
         {
-          "path": "https://github.com/g95690526-sudo/Infinity_bin_firmware/releases/download/1.0/infbin_v1.0_merged.bin",
-          "offset": 0
+          "path": "infbin_v1.0_merged.bin",
         }
       ]
     }
