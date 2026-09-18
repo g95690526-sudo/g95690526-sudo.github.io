@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,8 +7,8 @@
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
-    background: #000;
-    color: #07E0;
+    background: #000000;
+    color: #00FF00;
     font-family: 'Courier New', monospace;
     min-height: 100vh;
     display: flex;
@@ -24,8 +24,8 @@
     width: 100%; height: 100%;
     background: repeating-linear-gradient(
       0deg,
-      rgba(7,224,0,0.04) 0px,
-      rgba(7,224,0,0.04) 1px,
+      rgba(0, 255, 0, 0.05) 0px,
+      rgba(0, 255, 0, 0.05) 1px,
       transparent 1px,
       transparent 3px
     );
@@ -35,58 +35,58 @@
   .container {
     max-width: 760px;
     width: 100%;
-    background: rgba(0,20,0,0.5);
-    border: 2px solid #07E0;
+    background: rgba(0, 20, 0, 0.6);
+    border: 2px solid #00FF00;
     padding: 40px 30px;
     position: relative;
     z-index: 2;
-    box-shadow: 0 0 40px rgba(7,224,0,0.4), inset 0 0 20px rgba(7,224,0,0.1);
+    box-shadow: 0 0 40px rgba(0, 255, 0, 0.4), inset 0 0 20px rgba(0, 255, 0, 0.1);
   }
   .infinity {
     text-align: center;
     font-size: 90px;
-    color: #AFE5;
-    text-shadow: 0 0 20px #07E0, 0 0 40px #07E0;
+    color: #AAFF88;
+    text-shadow: 0 0 20px #00FF00, 0 0 40px #00FF00;
     margin-bottom: 5px;
     animation: pulse 2s infinite;
     line-height: 1;
   }
   @keyframes pulse {
-    0%, 100% { opacity: 1; text-shadow: 0 0 20px #07E0, 0 0 40px #07E0; }
-    50% { opacity: 0.7; text-shadow: 0 0 10px #07E0, 0 0 20px #07E0; }
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
   }
   h1 {
     text-align: center;
     font-size: 34px;
-    color: #07E0;
+    color: #00FF00;
     letter-spacing: 3px;
     margin-bottom: 8px;
-    text-shadow: 0 0 10px #07E0;
+    text-shadow: 0 0 10px #00FF00;
   }
   .subtitle {
     text-align: center;
-    color: #03E0;
+    color: #00AA00;
     font-size: 13px;
     margin-bottom: 30px;
     letter-spacing: 1px;
   }
   .terminal {
-    background: #000;
-    border: 1px solid #03E0;
+    background: #000000;
+    border: 1px solid #00AA00;
     padding: 15px;
     margin-bottom: 25px;
     font-size: 13px;
     line-height: 1.7;
-    color: #07E0;
+    color: #00FF00;
     min-height: 140px;
   }
-  .terminal .prompt { color: #AFE5; }
-  .terminal .dim { color: #03E0; }
+  .terminal .prompt { color: #AAFF88; }
+  .terminal .dim { color: #00AA00; }
   .cursor {
     display: inline-block;
     width: 8px;
     height: 14px;
-    background: #07E0;
+    background: #00FF00;
     animation: blink 1s infinite;
     vertical-align: middle;
   }
@@ -98,8 +98,8 @@
     display: block;
     text-align: center;
     padding: 18px;
-    background: #07E0;
-    color: #000;
+    background: #00FF00;
+    color: #000000;
     text-decoration: none;
     font-weight: bold;
     font-size: 17px;
@@ -107,27 +107,27 @@
     border: none;
     cursor: pointer;
     transition: all 0.3s;
-    box-shadow: 0 0 20px #07E0;
+    box-shadow: 0 0 20px #00FF00;
     margin-bottom: 12px;
     border-radius: 2px;
   }
   .btn:hover {
-    background: #AFE5;
-    box-shadow: 0 0 40px #AFE5, 0 0 60px #07E0;
+    background: #AAFF88;
+    box-shadow: 0 0 40px #AAFF88, 0 0 60px #00FF00;
     transform: scale(1.02);
   }
   .btn-secondary {
     background: transparent;
-    color: #07E0;
-    border: 2px solid #07E0;
+    color: #00FF00;
+    border: 2px solid #00FF00;
     box-shadow: none;
     font-size: 14px;
     padding: 12px;
   }
   .btn-secondary:hover {
-    background: rgba(7,224,0,0.15);
-    color: #AFE5;
-    box-shadow: 0 0 20px rgba(7,224,0,0.5);
+    background: rgba(0, 255, 0, 0.15);
+    color: #AAFF88;
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
   }
   .features {
     display: grid;
@@ -136,23 +136,23 @@
     margin: 25px 0;
   }
   .feature {
-    border: 1px solid #03E0;
+    border: 1px solid #00AA00;
     padding: 10px;
     font-size: 12px;
-    color: #07E0;
+    color: #00FF00;
   }
   .feature::before {
     content: '▸ ';
-    color: #AFE5;
+    color: #AAFF88;
   }
   .footer {
     text-align: center;
-    color: #03E0;
+    color: #00AA00;
     font-size: 11px;
     margin-top: 20px;
     line-height: 1.6;
   }
-  .footer a { color: #AFE5; text-decoration: none; }
+  .footer a { color: #AAFF88; text-decoration: none; }
   .footer a:hover { text-decoration: underline; }
   @media (max-width: 480px) {
     .infinity { font-size: 60px; }
@@ -171,20 +171,20 @@
     <div class="terminal">
       <div><span class="prompt">root@infbin:~$</span> ./run firmware</div>
       <div class="dim">[+] Loading modules...</div>
-      <div class="dim">[+] WiFi Scan ......... OK</div>
-      <div class="dim">[+] Beacon Spam ....... OK</div>
-      <div class="dim">[+] BLE Scan .......... OK</div>
-      <div class="dim">[+] BLE Spam .......... OK</div>
-      <div class="dim">[+] IR Blaster ........ OK</div>
-      <div class="dim">[+] 3D Cube ........... OK</div>
-      <div class="dim">[+] QR Rick Roll ...... OK</div>
+      <div class="dim">[+] WiFi Scan .......... OK</div>
+      <div class="dim">[+] Beacon Spam ........ OK</div>
+      <div class="dim">[+] BLE Scan ........... OK</div>
+      <div class="dim">[+] BLE Spam ........... OK</div>
+      <div class="dim">[+] IR Blaster ......... OK</div>
+      <div class="dim">[+] 3D Cube ............ OK</div>
+      <div class="dim">[+] QR Rick Roll ....... OK</div>
       <div><span class="prompt">root@infbin:~$</span> <span class="cursor"></span></div>
     </div>
 
-    <a class="btn" href="https://github.com/g95690526-sudo/Infinity_bin_firmware/releases/download/1.0/infbin_v1.0_merged.bin" download>
+    <a class="btn" href="https://github.com/g95690526-sudo/Infinity_bin_firmware/releases/download/1.0/sketch_sep18a.ino.merged.bin" download>
       ▼ DOWNLOAD FIRMWARE (MERGED .BIN)
     </a>
-    <a class="btn btn-secondary" href="https://github.com/g95690526-sudo/Infinity_bin_firmware/releases/download/1.0/infbin_v1.0.bin" download>
+    <a class="btn btn-secondary" href="https://github.com/g95690526-sudo/Infinity_bin_firmware/releases/download/1.0/sketch_sep18a.ino.bin" download>
       ▼ Download app only (.bin)
     </a>
     <a class="btn btn-secondary" href="https://github.com/g95690526-sudo/Infinity_bin_firmware" target="_blank">
