@@ -15,7 +15,27 @@
     font-family: 'Courier New', monospace;
   }
 
-  /* ===== CAUTION TAPE ===== */
+  #rain-canvas {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 0;
+    opacity: 0.65;
+    pointer-events: none;
+    transition: opacity 0.5s;
+  }
+  #rain-canvas.dimmed { opacity: 0.05; }
+
+  #eye-canvas {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 999;
+    display: none;
+    background: transparent;
+    cursor: crosshair;
+  }
+
   .caution {
     position: fixed;
     left: 0;
@@ -30,9 +50,11 @@
     z-index: 100;
     box-shadow: 0 0 20px rgba(255, 170, 0, 0.6);
     animation: slide 1.2s linear infinite;
+    transition: opacity 0.5s;
   }
   .caution-top { top: 0; }
   .caution-bottom { bottom: 0; animation-direction: reverse; }
+  .caution.dimmed { opacity: 0.15; }
 
   @keyframes slide {
     from { background-position: 0 0; }
@@ -41,8 +63,7 @@
 
   .caution-text {
     position: absolute;
-    top: 50%;
-    left: 50%;
+    top: 50%; left: 50%;
     transform: translate(-50%, -50%);
     color: #FFAA00;
     background: #000;
@@ -55,7 +76,6 @@
     text-shadow: 0 0 8px #FFAA00;
   }
 
-  /* ===== MAIN CONTENT ===== */
   main {
     padding: 100px 20px 100px;
     max-width: 900px;
@@ -63,75 +83,68 @@
     text-align: center;
     position: relative;
     z-index: 10;
+    transition: opacity 0.5s, filter 0.5s;
+  }
+  main.dimmed {
+    opacity: 0.08;
+    filter: blur(3px);
   }
 
-  /* ===== INFINITY - FAST BLINKING, SHARP EDGES ===== */
   .infinity-flash {
     font-size: 140px;
     line-height: 1;
     color: #FFAA00;
     font-weight: 900;
     margin-bottom: 10px;
-    /* Мигание */
     animation: blink 0.28s steps(2, start) infinite;
-    /* Острые грани — через множественные резкие тени */
     text-shadow:
-      3px 0 0 #FF6600,
-      -3px 0 0 #FF6600,
-      0 3px 0 #FF6600,
-      0 -3px 0 #FF6600,
-      3px 3px 0 #FF6600,
-      -3px -3px 0 #FF6600,
-      3px -3px 0 #FF6600,
-      -3px 3px 0 #FF6600,
-      0 0 25px #FFAA00,
-      0 0 50px #FF6600;
+      3px 0 0 #FF6600, -3px 0 0 #FF6600,
+      0 3px 0 #FF6600, 0 -3px 0 #FF6600,
+      3px 3px 0 #FF6600, -3px -3px 0 #FF6600,
+      3px -3px 0 #FF6600, -3px 3px 0 #FF6600,
+      0 0 25px #FFAA00, 0 0 50px #FF6600;
     -webkit-text-stroke: 2px #FFCC44;
+    cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    position: relative;
+    display: inline-block;
+    transition: transform 0.1s;
   }
+  .infinity-flash:active { transform: scale(0.94); }
 
   @keyframes blink {
     0%, 49% { opacity: 1; }
     50%, 100% { opacity: 0.15; }
   }
 
-  /* ===== INFINITY.BIN BETA!!! TITLE ===== */
   h1 {
     font-size: 42px;
     color: #FFAA00;
     letter-spacing: 5px;
     font-weight: 900;
     margin-bottom: 15px;
-    text-shadow:
-      2px 2px 0 #FF6600,
-      -2px -2px 0 #FF6600,
-      0 0 20px #FFAA00;
+    text-shadow: 2px 2px 0 #FF6600, -2px -2px 0 #FF6600, 0 0 20px #FFAA00;
     animation: jitter 0.3s steps(2) infinite;
   }
-
   @keyframes jitter {
     0%   { transform: translate(0, 0); }
     50%  { transform: translate(1px, -1px); }
     100% { transform: translate(0, 0); }
   }
 
-  /* ===== SUBTITLE - SHARP/JAGGED TEXT ===== */
   .subtitle {
     color: #FFCC44;
     font-size: 13px;
     letter-spacing: 3px;
     font-weight: bold;
     margin-bottom: 50px;
-    /* "колючий" эффект через текстовые тени острым контуром */
-    text-shadow:
-      1px 0 0 #FF6600,
-      -1px 0 0 #FF6600,
-      0 1px 0 #FF6600,
-      0 -1px 0 #FF6600,
-      0 0 8px #FFAA00;
+    text-shadow: 1px 0 0 #FF6600, -1px 0 0 #FF6600,
+                 0 1px 0 #FF6600, 0 -1px 0 #FF6600,
+                 0 0 8px #FFAA00;
     word-spacing: 2px;
   }
 
-  /* ===== FUNCTION BUTTONS (WRAPPED IN TAPE, DISABLED) ===== */
   .functions {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -152,7 +165,6 @@
     cursor: not-allowed;
     text-align: left;
     overflow: hidden;
-    /* Лента через полосатую обводку */
     background-image: repeating-linear-gradient(
       45deg,
       rgba(255, 170, 0, 0.15) 0px,
@@ -162,32 +174,23 @@
     );
     border-color: #FFAA00;
   }
-
   .func-btn::before {
     content: '▨';
     position: absolute;
-    top: 5px;
-    right: 8px;
+    top: 5px; right: 8px;
     color: #FFAA00;
     font-size: 18px;
     animation: blink 0.6s infinite;
   }
-
   .func-btn::after {
     content: 'LOCKED';
     position: absolute;
-    bottom: 3px;
-    right: 8px;
+    bottom: 3px; right: 8px;
     font-size: 9px;
     color: #FF6600;
     letter-spacing: 2px;
   }
 
-  .func-btn:hover {
-    background-color: #1a1a1a;
-  }
-
-  /* ===== DESCRIPTION ===== */
   .description {
     background: rgba(255, 170, 0, 0.08);
     border: 2px solid #FFAA00;
@@ -201,12 +204,10 @@
     position: relative;
     box-shadow: 0 0 20px rgba(255, 170, 0, 0.3);
   }
-
   .description::before {
     content: '⚠ ATTENTION';
     position: absolute;
-    top: -12px;
-    left: 20px;
+    top: -12px; left: 20px;
     background: #000;
     padding: 0 10px;
     color: #FFAA00;
@@ -214,7 +215,6 @@
     font-size: 12px;
     letter-spacing: 2px;
   }
-
   .description h2 {
     color: #FFAA00;
     font-size: 15px;
@@ -222,17 +222,9 @@
     letter-spacing: 2px;
     font-weight: bold;
   }
+  .description b { color: #FF6600; }
+  .description a { color: #FFCC44; text-decoration: underline; }
 
-  .description b {
-    color: #FF6600;
-  }
-
-  .description a {
-    color: #FFCC44;
-    text-decoration: underline;
-  }
-
-  /* ===== DOWNLOAD BUTTON ===== */
   .download-btn {
     display: block;
     padding: 20px;
@@ -248,7 +240,6 @@
     transition: all 0.2s;
     animation: jitter 0.4s steps(2) infinite;
   }
-
   .download-btn:hover {
     background: #FFCC44;
     box-shadow: 0 0 40px #FFCC44, 0 0 60px #FFAA00;
@@ -261,11 +252,7 @@
     letter-spacing: 1px;
     line-height: 1.8;
   }
-
-  .footer-text a {
-    color: #FFCC44;
-    text-decoration: none;
-  }
+  .footer-text a { color: #FFCC44; text-decoration: none; }
 
   @media (max-width: 600px) {
     .infinity-flash { font-size: 90px; }
@@ -279,25 +266,23 @@
 </head>
 <body>
 
-  <!-- ===== TOP CAUTION TAPE ===== -->
-  <div class="caution caution-top">
+  <canvas id="rain-canvas"></canvas>
+  <canvas id="eye-canvas"></canvas>
+
+  <div class="caution caution-top" id="tape1">
     <span class="caution-text">⚠ CAUTION — BETA TEST ⚠</span>
   </div>
 
-  <main>
+  <main id="main-content">
 
-    <!-- ===== BLINKING INFINITY ===== -->
-    <div class="infinity-flash">∞</div>
+    <div class="infinity-flash" id="secret">∞</div>
 
-    <!-- ===== TITLE ===== -->
     <h1>INFINITY.BIN BETA!!!</h1>
 
-    <!-- ===== SHARP SUBTITLE ===== -->
     <div class="subtitle">
       BETA FIRMWARE FOR M5STACK STICKS3 (ESP32-S3)
     </div>
 
-    <!-- ===== WRAPPED FUNCTION BUTTONS ===== -->
     <div class="functions">
       <button class="func-btn" disabled>WiFi Scan</button>
       <button class="func-btn" disabled>Beacon Spam</button>
@@ -311,7 +296,6 @@
       <button class="func-btn" disabled>About</button>
     </div>
 
-    <!-- ===== DESCRIPTION ===== -->
     <div class="description">
       <h2>THIS IS A BETA VERSION</h2>
       <p>
@@ -331,15 +315,8 @@
         shown as a preview of what's coming in the next stable release.
         Actual functionality is available in the firmware itself.
       </p>
-      <br>
-      <p style="font-size: 11px; color: #AA7700;">
-        By downloading and installing this beta, you acknowledge that you
-        are testing an unreleased build and agree to report any issues
-        you encounter.
-      </p>
     </div>
 
-    <!-- ===== DOWNLOAD ===== -->
     <a class="download-btn"
        href="https://github.com/g95690526-sudo/Infinity_bin_firmware/releases/download/v0.14132-beta/infbin_v0.14132_merged.bin"
        download>
@@ -354,10 +331,316 @@
 
   </main>
 
-  <!-- ===== BOTTOM CAUTION TAPE ===== -->
-  <div class="caution caution-bottom">
+  <div class="caution caution-bottom" id="tape2">
     <span class="caution-text">⚠ BETA TEST — USE AT OWN RISK ⚠</span>
   </div>
 
+<script>
+/* ============================================================
+   1. MATRIX RAIN — FAST VERTICAL, single chars stacked
+   ============================================================ */
+(function() {
+  const canvas = document.getElementById('rain-canvas');
+  const ctx = canvas.getContext('2d');
+
+  const chars = '01<>/\\|{}[]=+-*#$%&@!?ABCDEF'.split('');
+  const errChars = '!@#$%^&*()'.split('');
+
+  const fontSize = 14;
+  const colWidth = 12;
+  let cols, columns;
+
+  function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    cols = Math.floor(canvas.width / colWidth);
+    columns = [];
+    for (let i = 0; i < cols; i++) {
+      columns[i] = {
+        y: Math.random() * -100,
+        speed: 1.8 + Math.random() * 2.2,
+        len: 8 + Math.floor(Math.random() * 12),
+        chars: []
+      };
+      for (let j = 0; j < 30; j++) {
+        columns[i].chars[j] = chars[Math.floor(Math.random() * chars.length)];
+      }
+    }
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  function draw() {
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.25)';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.font = fontSize + "px 'Courier New', monospace";
+    ctx.textBaseline = 'top';
+
+    for (let i = 0; i < cols; i++) {
+      const col = columns[i];
+      const x = i * colWidth;
+
+      const headIndex = Math.floor(col.y);
+      const headChar = col.chars[((headIndex % col.chars.length) + col.chars.length) % col.chars.length];
+
+      const hy = headIndex * fontSize;
+      if (hy >= -fontSize && hy <= canvas.height) {
+        if (Math.random() < 0.08) {
+          ctx.fillStyle = '#FF3300';
+          ctx.fillText(errChars[Math.floor(Math.random() * errChars.length)], x, hy);
+        } else {
+          ctx.fillStyle = '#FFFFFF';
+          ctx.fillText(headChar, x, hy);
+        }
+      }
+
+      for (let j = 1; j <= col.len; j++) {
+        const ty = (headIndex - j) * fontSize;
+        if (ty < -fontSize || ty > canvas.height) continue;
+
+        if (Math.random() < 0.15) {
+          const idx = (((headIndex - j) % col.chars.length) + col.chars.length) % col.chars.length;
+          col.chars[idx] = chars[Math.floor(Math.random() * chars.length)];
+        }
+        const idx = (((headIndex - j) % col.chars.length) + col.chars.length) % col.chars.length;
+        const tc = col.chars[idx];
+
+        const alpha = 1 - (j / col.len);
+        if (alpha > 0.66)      ctx.fillStyle = '#FFAA00';
+        else if (alpha > 0.33) ctx.fillStyle = '#AA6600';
+        else                   ctx.fillStyle = '#3a2200';
+
+        ctx.fillText(tc, x, ty);
+      }
+
+      col.y += col.speed;
+
+      if ((headIndex - col.len) * fontSize > canvas.height) {
+        col.y = -Math.random() * 20 - 5;
+        col.speed = 1.8 + Math.random() * 2.2;
+        col.len = 8 + Math.floor(Math.random() * 12);
+      }
+    }
+  }
+
+  setInterval(draw, 20);
+})();
+
+/* ============================================================
+   2. SECRET — ILLUMINATI EYE (All-Seeing Eye of Providence)
+   ============================================================ */
+(function() {
+  const canvas = document.getElementById('eye-canvas');
+  const ctx = canvas.getContext('2d');
+  const rainCanvas = document.getElementById('rain-canvas');
+  const mainContent = document.getElementById('main-content');
+  const tape1 = document.getElementById('tape1');
+  const tape2 = document.getElementById('tape2');
+
+  let animating = false;
+  let raf = null;
+  let W = 0, H = 0;
+
+  const eye = {
+    x: 0, y: 0,
+    vx: 3, vy: 2,
+    size: 55,
+    pupilX: 0, pupilY: 0,
+    glow: 0
+  };
+
+  const trail = [];
+  const TRAIL_MAX = 50;
+  const FADE_TIME = 700;
+
+  function resize() {
+    W = canvas.width = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  function resetEye() {
+    eye.x = W / 2;
+    eye.y = H / 2;
+    const ang = Math.random() * Math.PI * 2;
+    const sp = 5 + Math.random() * 3;
+    eye.vx = Math.cos(ang) * sp;
+    eye.vy = Math.sin(ang) * sp;
+    eye.pupilX = 0;
+    eye.pupilY = 0;
+    eye.glow = 0;
+    trail.length = 0;
+  }
+
+  function update() {
+    eye.x += eye.vx;
+    eye.y += eye.vy;
+
+    const r = eye.size;
+    if (eye.x < r)     { eye.x = r;     eye.vx = Math.abs(eye.vx); }
+    if (eye.x > W - r) { eye.x = W - r; eye.vx = -Math.abs(eye.vx); }
+    if (eye.y < r)     { eye.y = r;     eye.vy = Math.abs(eye.vy); }
+    if (eye.y > H - r) { eye.y = H - r; eye.vy = -Math.abs(eye.vy); }
+
+    if (Math.random() < 0.02) {
+      const ang = Math.atan2(eye.vy, eye.vx) + (Math.random() - 0.5) * 1.2;
+      const sp = Math.sqrt(eye.vx*eye.vx + eye.vy*eye.vy);
+      eye.vx = Math.cos(ang) * sp;
+      eye.vy = Math.sin(ang) * sp;
+    }
+
+    eye.pupilX += ((eye.vx / 10) - eye.pupilX) * 0.12;
+    eye.pupilY += ((eye.vy / 10) - eye.pupilY) * 0.12;
+
+    eye.glow += 0.08;
+
+    const now = performance.now();
+    trail.push({ x: eye.x, y: eye.y, t: now });
+    while (trail.length && (now - trail[0].t > FADE_TIME)) trail.shift();
+    if (trail.length > TRAIL_MAX) trail.shift();
+  }
+
+  function drawIlluminati(cx, cy, size, alpha, withRays) {
+    ctx.save();
+    ctx.translate(cx, cy);
+    ctx.globalAlpha = alpha;
+
+    if (withRays) {
+      const rayCount = 12;
+      const rayLen = size * 0.45;
+      const glow = 0.5 + 0.5 * Math.sin(eye.glow);
+      ctx.strokeStyle = '#FFCC44';
+      ctx.globalAlpha = alpha * (0.4 + 0.4 * glow);
+      ctx.lineWidth = 2;
+      for (let i = 0; i < rayCount; i++) {
+        const a = (i / rayCount) * Math.PI * 2;
+        const x1 = Math.cos(a) * (size + 4);
+        const y1 = Math.sin(a) * (size + 4);
+        const x2 = Math.cos(a) * (size + 4 + rayLen * glow);
+        const y2 = Math.sin(a) * (size + 4 + rayLen * glow);
+        ctx.beginPath();
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(x2, y2);
+        ctx.stroke();
+      }
+      ctx.globalAlpha = alpha;
+    }
+
+    const r = size;
+    const pts = [];
+    for (let i = 0; i < 3; i++) {
+      const a = -Math.PI / 2 + (i / 3) * Math.PI * 2;
+      pts.push({ x: Math.cos(a) * r, y: Math.sin(a) * r });
+    }
+
+    ctx.beginPath();
+    ctx.moveTo(pts[0].x, pts[0].y);
+    ctx.lineTo(pts[1].x, pts[1].y);
+    ctx.lineTo(pts[2].x, pts[2].y);
+    ctx.closePath();
+
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.85)';
+    ctx.fill();
+
+    ctx.strokeStyle = '#FFAA00';
+    ctx.lineWidth = 3;
+    ctx.stroke();
+
+    ctx.strokeStyle = '#FF6600';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+
+    const eyeY = size * 0.15;
+    const eyeR = size * 0.32;
+
+    ctx.beginPath();
+    ctx.ellipse(0, eyeY, eyeR * 1.3, eyeR * 0.85, 0, 0, Math.PI * 2);
+    ctx.fillStyle = '#FFFFFF';
+    ctx.fill();
+    ctx.strokeStyle = '#FF6600';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    const irisR = eyeR * 0.55;
+    ctx.beginPath();
+    ctx.arc(eye.pupilX * 8, eyeY + eye.pupilY * 8, irisR, 0, Math.PI * 2);
+    ctx.fillStyle = '#FFAA00';
+    ctx.fill();
+
+    const pupilR = irisR * 0.45;
+    ctx.beginPath();
+    ctx.arc(eye.pupilX * 8, eyeY + eye.pupilY * 8, pupilR, 0, Math.PI * 2);
+    ctx.fillStyle = '#000000';
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.arc(eye.pupilX * 8 - irisR * 0.3, eyeY + eye.pupilY * 8 - irisR * 0.3, irisR * 0.18, 0, Math.PI * 2);
+    ctx.fillStyle = '#FFFFFF';
+    ctx.fill();
+
+    ctx.restore();
+  }
+
+  function render() {
+    ctx.clearRect(0, 0, W, H);
+    const now = performance.now();
+
+    for (let i = 0; i < trail.length; i++) {
+      const p = trail[i];
+      const age = (now - p.t) / FADE_TIME;
+      const alpha = (1 - age) * 0.35;
+      const size = eye.size * (0.6 + (1 - age) * 0.4);
+      drawIlluminati(p.x, p.y, size, alpha, false);
+    }
+
+    drawIlluminati(eye.x, eye.y, eye.size, 1, true);
+  }
+
+  function loop() {
+    if (!animating) return;
+    update();
+    render();
+    raf = requestAnimationFrame(loop);
+  }
+
+  function start() {
+    if (animating) {
+      resetEye();
+      return;
+    }
+    animating = true;
+    canvas.style.display = 'block';
+    rainCanvas.classList.add('dimmed');
+    mainContent.classList.add('dimmed');
+    tape1.classList.add('dimmed');
+    tape2.classList.add('dimmed');
+    resetEye();
+    loop();
+  }
+
+  function stop() {
+    animating = false;
+    if (raf) cancelAnimationFrame(raf);
+    canvas.style.display = 'none';
+    ctx.clearRect(0, 0, W, H);
+    rainCanvas.classList.remove('dimmed');
+    mainContent.classList.remove('dimmed');
+    tape1.classList.remove('dimmed');
+    tape2.classList.remove('dimmed');
+  }
+
+  document.getElementById('secret').addEventListener('click', start);
+
+  canvas.addEventListener('click', (e) => {
+    e.stopPropagation();
+    stop();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && animating) stop();
+  });
+})();
+</script>
 </body>
 </html>
