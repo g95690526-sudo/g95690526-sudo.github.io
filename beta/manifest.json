@@ -1,0 +1,15 @@
+{
+  "name": "Infinity.bin Beta",
+  "version": "0.14132",
+  "builds": [
+    {
+      "chipFamily": "ESP32-S3",
+      "parts": [
+        {
+          "path": "infbin_v0.14132_merged.bin",
+          "offset": 0
+        }
+      ]
+    }
+  ]
+}
